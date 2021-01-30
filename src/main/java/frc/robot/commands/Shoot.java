@@ -36,6 +36,7 @@ public class Shoot extends CommandBase {
   public void execute() {
     //RobotContainer.shooter.shoot(1); // COURT THIS SETS THE SPEED
     Shooter.bootlegShoot(4900, .8);
+    Shooter.hoodAutoSet();
 
     if (Shooter.intakeTime > 1.4 && Shooter.intakeTime < 1.6) {
       Intake.intakeStage1(1);

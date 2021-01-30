@@ -107,6 +107,7 @@ public class RobotContainer {
     //rightTrigger.whenPressed(new TurnToTarget());
     //rightTopLeft.whenPressed(new Follow(driveTrain, vision));
     rightThumb.whileHeld(new Shoot(shooter, intake));
+    rightThumb.whileHeld(new TurnToTarget(driveTrain, vision));
     leftTrigger.whenPressed(new ClimbControl(climb));
     rightTrigger.whileHeld(new IntakeBawls(intake, 1, 1));
     reverseIntake.whileHeld(new IntakeBawls(intake, -1, -1));
