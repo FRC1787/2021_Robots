@@ -6,10 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import frc.robot.subsystems.Shooter;
+
+import frc.robot.RobotContainer;
+
 public class HoodCal extends CommandBase {
   /** Creates a new HoodCal. */
-  public HoodCal() {
+  public HoodCal(Shooter subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +23,9 @@ public class HoodCal extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    RobotContainer.shooter.hoodCalibrate();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -27,6 +34,6 @@ public class HoodCal extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return RobotContainer.shooter.hood.getOutputCurrent() > 12;
   }
 }
