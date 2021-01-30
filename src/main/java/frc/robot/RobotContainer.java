@@ -33,7 +33,6 @@ import frc.robot.commands.ClimbControl;
 import frc.robot.commands.IntakeBawls;
 import frc.robot.commands.IntakeExtend;
 import frc.robot.commands.SetHood;
-import frc.robot.commands.HoodCal;
 import frc.robot.commands.OneEighty;
 
 import frc.robot.commands.PointBlank;
@@ -117,7 +116,7 @@ public class RobotContainer {
     hoodBack.whenPressed(new SetHood(shooter, "Back"));
     hoodForward.whenPressed(new SetHood(shooter, "Forward"));
     hoodManualButton.whileHeld( new SetHood(shooter, "Manual"));
-    hoodCalibrateButton.whenPressed(new HoodCal(shooter));
+    hoodCalibrateButton.whenPressed(new SetHood(shooter, "Calibrate"));
     //targetButton.whenPressed(new OneEighty(driveTrain, gyro));
   }
 
