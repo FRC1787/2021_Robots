@@ -37,7 +37,7 @@ public class SetHood extends CommandBase {
       Shooter.hoodForward();
     }
     else if (setPosition.equals("Manual")) {
-      Shooter.setHood(RobotContainer.leftStick.getRawAxis(3));
+      Shooter.setHood((RobotContainer.leftStick.getRawAxis(3) - 0.5)*2);
     }
     else if (setPosition.equals("Auto")) {
       Shooter.hoodAutoSet();
