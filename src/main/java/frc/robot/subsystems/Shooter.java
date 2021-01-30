@@ -49,7 +49,7 @@ public class Shooter extends SubsystemBase {
     intakeShootTimer.stop();
     shootTimer.reset();
     intakeShootTimer.reset();
-    hood.setInverted(false);
+    //hood.setInverted(false);
   }
 
   // SHOOTER //
@@ -94,7 +94,7 @@ public class Shooter extends SubsystemBase {
   // HOOD //
 
   public static void hoodCalibrate() {
-    hood.set(1);
+    hood.set(-1);
     if (hood.getOutputCurrent() > 10) {
       Shooter.hoodZeroPos = hoodE.getPosition();
       hood.set(0);
