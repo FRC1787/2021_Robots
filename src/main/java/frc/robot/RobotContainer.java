@@ -94,7 +94,7 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
     driveTrain.setDefaultCommand(robotDrive);
-    shooter.setDefaultCommand(setHood);
+    //shooter.setDefaultCommand(setHood);
   }
 
   /**
@@ -115,7 +115,7 @@ public class RobotContainer {
     intakeToggle.whenPressed(new IntakeExtend(intake));
     hoodBack.whenPressed(new SetHood(shooter, "Back"));
     hoodForward.whenPressed(new SetHood(shooter, "Forward"));
-    hoodManualButton.whileHeld( new SetHood(shooter, "Manual"));
+    hoodManualButton.whileHeld(new SetHood(shooter, "Manual"));
     hoodCalibrateButton.whenPressed(new SetHood(shooter, "Calibrate"));
     //targetButton.whenPressed(new OneEighty(driveTrain, gyro));
   }
