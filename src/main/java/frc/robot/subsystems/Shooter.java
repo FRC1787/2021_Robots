@@ -133,12 +133,14 @@ public class Shooter extends SubsystemBase {
     }*/
   }
 
-  public static void hoodBack() { //Sets the hood to a good position for shooting from in front of the high goal
+  //Sets the hood to a good position for shooting from in front of the high goal
+  public static void hoodBack() { 
     double deltaPos = (-0.075806 - hoodE.getPosition()) * (20);
     hood.set(deltaPos);
   }
 
-  public static void hoodForward() { //sets the hood to a good position for shooting from the trench
+  //sets the hood to a good position for shooting from the trench
+  public static void hoodForward() { 
     double deltaPos = (-0.420898 - hoodE.getPosition()) * (20);
     hood.set(deltaPos);
   }

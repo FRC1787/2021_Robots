@@ -46,7 +46,7 @@ public class Shoot extends CommandBase {
     }
   }
 
-  // Called once the command ends or is interrupted.
+  //Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Vision.ledSet(1);

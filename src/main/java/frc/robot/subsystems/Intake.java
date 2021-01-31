@@ -85,6 +85,7 @@ public class Intake extends SubsystemBase {
     //intakeFront.set(-setSpeed);
   }
 
+  
   public static boolean getBreakerState() {
     return (succitvan2.getVoltage() > Intake.breakerVoltageConstant);
   }

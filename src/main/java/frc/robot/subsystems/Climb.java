@@ -29,31 +29,36 @@ public class Climb extends SubsystemBase {
   public static boolean liftState = true;
 
 
+  //Checks if climb button has been pressed
   public void liftCheck() {
     if (RobotContainer.leftStick.getRawButtonPressed(1)) {
       Climb.liftState = !Climb.liftState;
     }
   }
-  
+
   public Climb() {
     climb2.setInverted(true);
     //lifterBrake(true);
     climbTimer.reset();
   }
 
+  // Controls both climber hooks simultaneously
   public static void climbRun(double setSpeed) {
     climb1.set(setSpeed);
     climb2.set(setSpeed);
   }
 
+  // Controls the left climber hook
   public static void climbLeft(double setSpeed) {
     climb1.set(setSpeed);
   }
 
+  // Controls the right climber hook
   public static void climbRight(double setSpeed) {
     climb2.set(setSpeed);
   }
 
+  // Engages and disengages the cylinders on the lifter
   public static void lifterBrake(boolean state) {
     brakeEngaged.set(state);
     brakeDisengaged.set(!state);

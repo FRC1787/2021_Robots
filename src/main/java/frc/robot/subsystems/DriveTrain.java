@@ -80,14 +80,14 @@ public class DriveTrain extends SubsystemBase {
     right3.set(speed);
   }
 
-  // average encoder value on the left side of the robot
+  // Average encoder value on the left side of the robot
   public static double leftEncoder() {
     return -(left1E.getPosition() + left2E.getPosition() + left3E.getPosition()) / 3.0;
   }
 
-  // average encoder value on the right side of the robot
+  // Average encoder value on the right side of the robot
   public static double rightEncoder() {
-    return (right1E.getPosition() + right2E.getPosition() + right3E.getPosition()) / 2.0;
+    return (right1E.getPosition() + right2E.getPosition() + right3E.getPosition()) / 3.0;
   }
 
   public static double rightDistance() {
@@ -98,24 +98,23 @@ public class DriveTrain extends SubsystemBase {
     return -((leftEncoder() / 8.05) * 4 * Math.PI);
   }
 
-  // % output of the right side of the robot
+  // % Output of the right side of the robot
   public static double averageRightsideOutput() {
     return (right1.get() + right2.get() + right3.get()) / 3;
   }
 
-  // % output of the left side of the robot
+  // % Output of the left side of the robot
   public static double averageLeftsideOutput() {
     return (left1.get() + left2.get()+ left3.get()) / 3;
   }
 
-  // sets % values for each side of the robot individually
+  // Sets % values for each side of the robot individually
   public static void tankDrive(final double leftSide, final double rightSide) {
     moveLeftSide(leftSide);
     moveRightSide(rightSide);
   }
 
-  // drives both sides of the robot based on values from a feedback sensor and a
-  // target position
+  // Drives both sides of the robot based on values from a feedback sensor and a target position
   public static void seekDrive(double destination, String feedBackSensor, String seekType) {
     if (feedBackSensor.equals("navX") && !seekType.equals("follow")) {
       tankDrive(-pIDDrive(destination, Gyro.navXRotAngle(), feedBackSensor, seekType),
