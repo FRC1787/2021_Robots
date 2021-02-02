@@ -9,8 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Joystick; 
@@ -60,11 +62,13 @@ public class RobotContainer {
 
   /* Commands */
   public final static RobotDrive robotDrive = new RobotDrive(driveTrain);
-  public final static SetHood setHood = new SetHood(shooter, "Auto");
-  //public final static TurnToTarget turnToTarget = new TurnToTarget();
+  public final static SetHood autoHood = new SetHood(shooter, "Auto");
+  public final static TurnToTarget turnToTarget = new TurnToTarget(driveTrain, vision);
   public final static Shoot shoot = new Shoot(shooter, intake);
-
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
+
+  private final static ParallelCommandGroup autoShoot = new ParallelCommandGroup(shoot, autoHood, turnToTarget);
+  
 
   /* OI */
 
@@ -80,8 +84,7 @@ public class RobotContainer {
   //Left Stick
   public static Joystick leftStick = new Joystick(1);
   public Button leftTrigger = new JoystickButton(leftStick, 1);
-  //public Button intakeRetract = new JoystickButton(leftStick, 3);
-  //public Button intakeExtend = new JoystickButton(leftStick, 4);
+  public Button leftThumb = new JoystickButton(leftStick, 2);
   public Button hoodManualButton = new JoystickButton(leftStick, 6);
   public Button hoodForward = new JoystickButton(leftStick, 7);
   public Button hoodBack = new JoystickButton(leftStick, 8);
@@ -97,28 +100,33 @@ public class RobotContainer {
     //shooter.setDefaultCommand(setHood);
   }
 
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
+
   private void configureButtonBindings() {
-    //rightTrigger.whenPressed(new TurnToTarget());
-    //rightTopLeft.whenPressed(new Follow(driveTrain, vision));
-    rightThumb.whileHeld(new Shoot(shooter, intake));
-    rightThumb.whileHeld(new TurnToTarget(driveTrain, vision));
-    leftTrigger.whenPressed(new ClimbControl(climb));
-    rightTrigger.whileHeld(new IntakeBawls(intake, 1, 1));
-    reverseIntake.whileHeld(new IntakeBawls(intake, -1, -1));
-    targetButton.whenPressed(new TurnToTarget(driveTrain, vision));
-    //rightRight.whileHeld(new Chase(driveTrain, vision));
-    intakeToggle.whenPressed(new IntakeExtend(intake));
-    hoodBack.whenPressed(new SetHood(shooter, "Back"));
-    hoodForward.whenPressed(new SetHood(shooter, "Forward"));
-    hoodManualButton.whileHeld(new SetHood(shooter, "Manual"));
-    hoodCalibrateButton.whenPressed(new SetHood(shooter, "Calibrate"));
-    //targetButton.whenPressed(new OneEighty(driveTrain, gyro));
+
+    /* INTAKE */
+    rightTrigger.whileHeld(new IntakeBawls(intake, 1, 1)); //Intake Balls
+    reverseIntake.whileHeld(new IntakeBawls(intake, -1, -1)); //Eject Balls
+    intakeToggle.whenPressed(new IntakeExtend(intake)); //Toggle Intake Position
+
+    /* SHOOTER */
+    rightThumb.whileHeld(shoot); //Manual Shoot
+    leftThumb.whileHeld(autoShoot); //Targeting Shoot
+
+    /* HOOD */
+    hoodBack.whenPressed(new SetHood(shooter, "Back")); //Set to preprogrammed "Back" position
+    hoodForward.whenPressed(new SetHood(shooter, "Forward")); //Set to preprogrammed "Forward" position
+    hoodManualButton.whileHeld(new SetHood(shooter, "Manual")); //Manually set hood position
+    hoodCalibrateButton.whenPressed(new SetHood(shooter, "Calibrate")); // Set hood to back limit and re-zero it
+
+    /* VISION */
+    targetButton.whenPressed(new TurnToTarget(driveTrain, vision)); //Turn to face vision target
+
+    /* LIFTER */
+    leftTrigger.whenPressed(new ClimbControl(climb)); //Change lifter control and position states
+
+    /* TESTING */ 
+    //targetButton.whenPressed(new OneEighty(driveTrain, gyro)); //Turn robot in place 180 degrees
+    //rightRight.whileHeld(new Chase(driveTrain, vision)); //I don't really remember what this does its probs dangerous though. I'm being serious by the way.
   }
 
 
