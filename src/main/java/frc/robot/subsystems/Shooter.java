@@ -49,7 +49,7 @@ public class Shooter extends SubsystemBase {
     intakeShootTimer.stop();
     shootTimer.reset();
     intakeShootTimer.reset();
-    //hood.setInverted(false);
+    hood.setInverted(false);
   }
 
   // SHOOTER //
