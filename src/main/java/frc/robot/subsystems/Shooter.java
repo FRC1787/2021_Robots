@@ -108,7 +108,7 @@ public class Shooter extends SubsystemBase {
   public static void hoodAutoSet() {
     double deltaPos = (Shooter.hoodSetPos - hoodE.getPosition()) * 20;
     if (hoodSetPos <= 0) {
-      hood.set(deltaPos);
+      hood.set(-deltaPos);
     }
     else {
       hood.set(0);
