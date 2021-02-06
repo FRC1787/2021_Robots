@@ -67,7 +67,7 @@ public class RobotContainer {
   public final static Shoot shoot = new Shoot(shooter, intake);
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
 
-  private final static ParallelCommandGroup autoShoot = new ParallelCommandGroup(shoot, autoHood, turnToTarget);
+  //private final static ParallelCommandGroup autoShoot = new ParallelCommandGroup(shoot, autoHood, turnToTarget);
   
 
   /* OI */
@@ -110,7 +110,10 @@ public class RobotContainer {
 
     /* SHOOTER */
     rightThumb.whileHeld(shoot); //Manual Shoot
-    leftThumb.whileHeld(autoShoot); //Targeting Shoot
+    //leftThumb.whileHeld(autoShoot); //Targeting Shoot
+    leftThumb.whileHeld(shoot);
+    leftThumb.whileHeld(autoHood);
+    leftThumb.whileHeld(turnToTarget);
 
     /* HOOD */
     hoodBack.whenPressed(new SetHood(shooter, "Back")); //Set to preprogrammed "Back" position
