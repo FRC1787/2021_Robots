@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Joystick; 
@@ -66,6 +67,7 @@ public class RobotContainer {
   public final static TurnToTarget turnToTarget = new TurnToTarget(driveTrain, vision);
   public final static Shoot shoot = new Shoot(shooter, intake);
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
+  private final static ScheduleCommand autoShoot = new ScheduleCommand(shoot,autoHood,turnToTarget);
 
   //private final static ParallelCommandGroup autoShoot = new ParallelCommandGroup(shoot, autoHood, turnToTarget);
   
@@ -110,10 +112,11 @@ public class RobotContainer {
 
     /* SHOOTER */
     rightThumb.whileHeld(shoot); //Manual Shoot
-    //leftThumb.whileHeld(autoShoot); //Targeting Shoot
-    leftThumb.whileHeld(shoot);
-    leftThumb.whileHeld(autoHood);
-    leftThumb.whileHeld(turnToTarget);
+    leftThumb.whileHeld(autoShoot); //Targeting Shoot
+
+    //leftThumb.whileHeld(shoot);
+    //leftThumb.whileHeld(autoHood);
+    //leftThumb.whileHeld(turnToTarget);
 
     /* HOOD */
     hoodBack.whenPressed(new SetHood(shooter, "Back")); //Set to preprogrammed "Back" position
