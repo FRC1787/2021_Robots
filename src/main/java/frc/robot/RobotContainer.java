@@ -67,7 +67,7 @@ public class RobotContainer {
   public final static TurnToTarget turnToTarget = new TurnToTarget(driveTrain, vision);
   public final static Shoot shoot = new Shoot(shooter, intake);
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
-  private final static ScheduleCommand autoShoot = new ScheduleCommand(shoot,autoHood,turnToTarget);
+  private final static ScheduleCommand autoShoot = new ScheduleCommand(shoot, turnToTarget);
 
   //private final static ParallelCommandGroup autoShoot = new ParallelCommandGroup(shoot, autoHood, turnToTarget);
   
