@@ -56,6 +56,6 @@ public class TurnToTarget extends CommandBase {
   @Override
   public boolean isFinished() {
     //return RobotContainer.rightStick.getRawButton(Constants.DRIVETRAIN_OVERRIDE_BUTTON);
-    return !(RobotContainer.rightStick.getRawButton(2) ^ RobotContainer.leftStick.getRawButton(2));
+    return false;
   }
 }

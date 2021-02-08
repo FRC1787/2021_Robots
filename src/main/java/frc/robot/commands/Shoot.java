@@ -15,11 +15,14 @@ import frc.robot.subsystems.Vision;
 import frc.robot.RobotContainer;
 
 public class Shoot extends CommandBase {
+  
+  private boolean autoTargetting;
   /**
    * Creates a new Shoot.
    */
-  public Shoot(Shooter shooter, Intake intake) {
+  public Shoot(Shooter shooter, Intake intake, boolean shotType) {
     addRequirements(shooter, intake);
+    this.autoTargetting = shotType;
   }
 
   // Called when the command is initially scheduled.
@@ -27,8 +30,11 @@ public class Shoot extends CommandBase {
   public void initialize() {
     Shooter.shootTimer.start();
     Shooter.intakeShootTimer.start();
-    Vision.ledSet(3);
-    Vision.cameraSet(0);
+    
+    if (autoTargetting) {
+      Vision.ledSet(3);
+      Vision.cameraSet(0);
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,7 +42,10 @@ public class Shoot extends CommandBase {
   public void execute() {
     //RobotContainer.shooter.shoot(1); // COURT THIS SETS THE SPEED
     Shooter.bootlegShoot(4900, .8); //Sean this sets the RPM and accelerator wheel voltage percentage
-    Shooter.hoodAutoSet();
+    
+    if (autoTargetting) {
+      Shooter.hoodAutoSet();
+    }
 
     if (Shooter.intakeTime > 1.4 && Shooter.intakeTime < 1.6) {
       Intake.intakeStage1(1);
