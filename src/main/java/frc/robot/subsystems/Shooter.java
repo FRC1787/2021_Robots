@@ -128,7 +128,7 @@ public class Shooter extends SubsystemBase {
   
   public static void hoodControlState() {
 
-    /*if (RobotContainer.leftStick.getRawButtonPressed(2)) {
+    /*if (RobotContainer.leftStick.getRawButtonPressed(3)) {
       Shooter.hoodControl = !Shooter.hoodControl;
     }*/
   }

@@ -17,10 +17,10 @@ public class Chase extends CommandBase {
   /**
    * Creates a new Chase.
    */
-  public Chase(DriveTrain subsystem, Vision subsystemTwo) {
+  public Chase(DriveTrain driveTrain, Vision vision) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
-    addRequirements(subsystemTwo);
+    addRequirements(driveTrain);
+    addRequirements(vision);
   }
 
   // Called when the command is initially scheduled.

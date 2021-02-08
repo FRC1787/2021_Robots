@@ -49,9 +49,7 @@ import frc.robot.commands.PointBlank;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  
   /* Subsystems */
   public final static DriveTrain driveTrain = new DriveTrain();
   public final static Gyro gyro = new Gyro();
@@ -64,14 +62,12 @@ public class RobotContainer {
 
   /* Commands */
   public final static RobotDrive robotDrive = new RobotDrive(driveTrain);
-  public final static SetHood autoHood = new SetHood(shooter, "Auto");
   public final static TurnToTarget turnToTarget = new TurnToTarget(driveTrain, vision);
   public final static Shoot shoot = new Shoot(shooter, intake, false);
   public final static Shoot autoShoot = new Shoot(shooter, intake, true);
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
   private final static ParallelRaceGroup targetingShoot = new ParallelRaceGroup(autoShoot, turnToTarget);
 
-  //private final static ParallelCommandGroup autoShoot = new ParallelCommandGroup(shoot, autoHood, turnToTarget);
   
 
   /* OI */
@@ -115,10 +111,6 @@ public class RobotContainer {
     /* SHOOTER */
     rightThumb.whileHeld(shoot); //Manual Shoot
     leftThumb.whileHeld(targetingShoot); //Targeting Shoot
-
-    //leftThumb.whileHeld(shoot);
-    //leftThumb.whileHeld(autoHood);
-    //leftThumb.whileHeld(turnToTarget);
 
     /* HOOD */
     hoodBack.whenPressed(new SetHood(shooter, "Back")); //Set to preprogrammed "Back" position
