@@ -148,7 +148,7 @@ public class DriveTrain extends SubsystemBase {
   {
     if (feedBackSensor.equals("navX")) {
       proportionalTweak = 0.007; // 0.0065 0.0047
-      integralTweak = 0.0001; // .000007
+      integralTweak = 0.0002; // .000007
       DerivativeTweak = 0.0005;
       okErrorRange = 0.00;
     }

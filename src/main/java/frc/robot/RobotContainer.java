@@ -66,7 +66,7 @@ public class RobotContainer {
   public final static Shoot shoot = new Shoot(shooter, intake, false);
   public final static Shoot autoShoot = new Shoot(shooter, intake, true);
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
-  private final static ParallelRaceGroup targetingShoot = new ParallelRaceGroup(autoShoot, turnToTarget);
+  private final static ParallelRaceGroup targetingShoot = new ParallelRaceGroup(new Shoot(shooter, intake, true), turnToTarget);
 
   
 
