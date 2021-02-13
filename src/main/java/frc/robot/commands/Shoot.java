@@ -68,9 +68,6 @@ public class Shoot extends CommandBase {
     Shooter.intakeShootTimer.reset();
     Shooter.setHood(0);
 
-    if(autoTargetting) {
-      Shooter.hoodCalibrate();
-    }
   }
 
   // Returns true when the command should end.

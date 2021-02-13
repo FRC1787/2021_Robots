@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Joystick; 
@@ -67,6 +68,7 @@ public class RobotContainer {
   public final static Shoot autoShoot = new Shoot(shooter, intake, true);
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
   private final static ParallelRaceGroup targetingShoot = new ParallelRaceGroup(new Shoot(shooter, intake, true), turnToTarget);
+  
 
   
 
@@ -111,6 +113,7 @@ public class RobotContainer {
     /* SHOOTER */
     rightThumb.whileHeld(shoot); //Manual Shoot
     leftThumb.whileHeld(targetingShoot); //Targeting Shoot
+    leftThumb.whenReleased(new SetHood(shooter, "Calibrate"));
 
     /* HOOD */
     hoodBack.whenPressed(new SetHood(shooter, "Back")); //Set to preprogrammed "Back" position
