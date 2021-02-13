@@ -62,7 +62,7 @@ public class SetHood extends CommandBase {
   @Override
   public boolean isFinished() {
     if (setPosition.equals("Calibrate")) {
-      return Shooter.hood.getOutputCurrent() > 12;
+      return Shooter.hood.getOutputCurrent() > 10;
     }
     else
     return false;
