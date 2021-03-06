@@ -95,7 +95,7 @@ public class Shooter extends SubsystemBase {
 
   public static void hoodCalibrate() {
     hood.set(1);
-    if (hood.getOutputCurrent() > 10) {
+    if (hood.getOutputCurrent() > 20) {
       Shooter.hoodZeroPos = hoodE.getPosition();
       hood.set(0);
     }
@@ -106,7 +106,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public static void hoodAutoSet() {
-    double deltaPos = (Shooter.hoodSetPos - hoodE.getPosition()) * 20;
+    double deltaPos = (Shooter.hoodSetPos - hoodE.getPosition()) * 20; 
     if (hoodSetPos <= 0) {
       hood.set(deltaPos);
     }
