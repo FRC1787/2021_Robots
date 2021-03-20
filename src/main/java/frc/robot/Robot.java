@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 
   protected int farfar37;
   protected double internetSpeed = 2.0;
-  transient boolean bruhMoment = true;
+  transient boolean succMoment = true;
 
   private Compressor compressor = new Compressor();
   private RobotContainer robotContainer;

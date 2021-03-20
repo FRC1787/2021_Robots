@@ -25,6 +25,8 @@ public class Vision extends SubsystemBase {
 
   private UsbCamera powerCellCam;
 
+  private UsbCamera limelightCam;
+
   private CvSource outputStream;
 
   private CvSink powerCellFrameGrabber;
@@ -58,7 +60,6 @@ public class Vision extends SubsystemBase {
 
     //Push processed or unprocessed frames
     outputStream = cameraServer.putVideo("Processed Video", STANDARD_IMG_WIDTH, STANDARD_IMG_HEIGHT);
-  
   }
 
   public void configureCamera(UsbCamera camera, boolean targetingCamera) {
