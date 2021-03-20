@@ -41,6 +41,7 @@ import frc.robot.commands.SetHood;
 import frc.robot.commands.OneEighty;
 
 import frc.robot.commands.PointBlank;
+import frc.robot.commands.AutonomousTrajectory;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -68,6 +69,7 @@ public class RobotContainer {
   public final static Shoot autoShoot = new Shoot(shooter, intake, true);
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
   private final static ParallelRaceGroup targetingShoot = new ParallelRaceGroup(new Shoot(shooter, intake, true), turnToTarget);
+  public final static AutonomousTrajectory autonomousTrajectory = new AutonomousTrajectory(driveTrain, gyro);
   
 
   
@@ -140,7 +142,8 @@ public class RobotContainer {
    */
   
    public Command getAutonomousCommand() {
-     return pointBlank;
+
+    return pointBlank;
     }
     //hi
 }
