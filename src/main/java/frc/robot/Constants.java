@@ -17,5 +17,14 @@ package frc.robot;
  */
 public final class Constants {
 
+	//CONTROLS
 	public static final int DRIVETRAIN_OVERRIDE_BUTTON = 5;
+
+	//PID VALUES
+	public static final double PROPORTIONAL_TWEAK = 0.007; // 0.0065 0.0047
+	public static final double INTEGRAL_TWEAK = 0.0001;
+	public static final double DERIVATIVE_TWEAK = 0.0005;
+	
+	
+
 }
