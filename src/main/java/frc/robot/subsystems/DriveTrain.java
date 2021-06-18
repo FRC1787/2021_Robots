@@ -232,6 +232,41 @@ public class DriveTrain extends SubsystemBase {
       return 0;
   }
 
+  public static double PIDDrive2(double targetDistance, double actualValue) {
+    
+    proportional = error; // Math for determining motor output based on PID values
+    derivative = (previousError - error) / 0.02;
+    integral += previousError;
+    previousError = error;
+
+    if ((error > okErrorRange || error < -okErrorRange)) // && !(targetDistance < actualValue && seekType == "oneWay")
+    {
+      pIDMotorVoltage = truncateMotorOutput((Constants.PROPORTIONAL_TWEAK * proportional)
+          + (Constants.DERIVATIVE_TWEAK * derivative) + (Constants.INTEGRAL_TWEAK * integral), "navX");
+
+      return pIDMotorVoltage;
+    }
+
+    else 
+    return 0; 
+
+  }
+
+  public static void angleTurn(double setAngle) { // Gyro should be reset before method is used unless you're doing something weird
+    tankDrive(-PIDDrive2(setAngle, Gyro.navXRotAngle()), PIDDrive2(setAngle, Gyro.navXRotAngle()));
+  }
+
+  public static void visionTurn() {
+    Gyro.navX.reset();
+    tankDrive(-PIDDrive2(Vision.lX, Gyro.navXRotAngle()), PIDDrive2(Vision.lX, Gyro.navXRotAngle()));
+  }
+
+  public static void visionFollow(double distance) {
+    tankDrive(PIDDrive2(distance, Vision.distanceToTarget()), PIDDrive2(distance, Vision.distanceToTarget()));
+  }
+
+  //public static void 
+
   // returns 0 if input is below zero and returns the input if it is above 0
   public static double noNegative(final double input)
     {
