@@ -40,18 +40,20 @@ public class DriveTrain extends SubsystemBase {
   private static CANSparkMax right3 = new CANSparkMax(15, MotorType.kBrushless);
 
   /*Neo Motor Encoder Objects*/
-  public static CANEncoder left1E = new CANEncoder(left1);
-  public static CANEncoder left2E = new CANEncoder(left2);
-  public static CANEncoder left3E = new CANEncoder(left3);
-  public static CANEncoder right1E = new CANEncoder(right1);
-  public static CANEncoder right2E = new CANEncoder(right2);
-  public static CANEncoder right3E = new CANEncoder(right3);
+  public static CANEncoder left1E = left1.getEncoder();
+  public static CANEncoder left2E = left2.getEncoder();
+  public static CANEncoder left3E = left3.getEncoder();
+  public static CANEncoder right1E = right1.getEncoder();
+  public static CANEncoder right2E = right2.getEncoder();
+  public static CANEncoder right3E = right3.getEncoder();
 
   public DriveTrain() {
     left1.setIdleMode(IdleMode.kBrake); //sets drive motors to brake mode
     right1.setIdleMode(IdleMode.kBrake);
     left2.setIdleMode(IdleMode.kBrake);
     right2.setIdleMode(IdleMode.kBrake);
+    left3.setIdleMode(IdleMode.kBrake);
+    right3.setIdleMode(IdleMode.kBrake);
 
     right1.setInverted(true); 
     right2.setInverted(true);
@@ -80,6 +82,12 @@ public class DriveTrain extends SubsystemBase {
     right3.set(speed);
   }
 
+  // sets % values for each side of the robot individually
+  public static void tankDrive(final double leftSide, final double rightSide) {
+    moveLeftSide(leftSide);
+    moveRightSide(rightSide);
+  }
+
   // average encoder value on the left side of the robot
   public static double leftEncoder() {
     return -(left1E.getPosition() + left2E.getPosition() + left3E.getPosition()) / 3.0;
@@ -90,10 +98,12 @@ public class DriveTrain extends SubsystemBase {
     return (right1E.getPosition() + right2E.getPosition() + right3E.getPosition()) / 2.0;
   }
 
+  // distance in feet the right side of the robot has traveled
   public static double rightDistance() {
     return ((rightEncoder() / 8.05) * 4 * Math.PI);
   }
 
+  // distance in feet the left side of the robot has traveled
   public static double leftDistance() {
     return -((leftEncoder() / 8.05) * 4 * Math.PI);
   }
@@ -108,11 +118,7 @@ public class DriveTrain extends SubsystemBase {
     return (left1.get() + left2.get()+ left3.get()) / 3;
   }
 
-  // sets % values for each side of the robot individually
-  public static void tankDrive(final double leftSide, final double rightSide) {
-    moveLeftSide(leftSide);
-    moveRightSide(rightSide);
-  }
+
 
   // drives both sides of the robot based on values from a feedback sensor and a
   // target position
@@ -241,8 +247,8 @@ public class DriveTrain extends SubsystemBase {
 
     if ((error > okErrorRange || error < -okErrorRange)) // && !(targetDistance < actualValue && seekType == "oneWay")
     {
-      pIDMotorVoltage = truncateMotorOutput((Constants.PROPORTIONAL_TWEAK * proportional)
-          + (Constants.DERIVATIVE_TWEAK * derivative) + (Constants.INTEGRAL_TWEAK * integral), "navX");
+      pIDMotorVoltage = truncateMotorOutput((Constants.PROPORTIONAL_TWEAK * proportional) + (Constants.INTEGRAL_TWEAK * integral)
+          + (Constants.DERIVATIVE_TWEAK * derivative), "navX");
 
       return pIDMotorVoltage;
     }
@@ -256,16 +262,23 @@ public class DriveTrain extends SubsystemBase {
     tankDrive(-PIDDrive2(setAngle, Gyro.navXRotAngle()), PIDDrive2(setAngle, Gyro.navXRotAngle()));
   }
 
-  public static void visionTurn() {
+  public static void visionTurn() { // Turns the robot to face the vision target
     Gyro.navX.reset();
     tankDrive(-PIDDrive2(Vision.lX, Gyro.navXRotAngle()), PIDDrive2(Vision.lX, Gyro.navXRotAngle()));
   }
 
-  public static void visionFollow(double distance) {
+  public static void visionFollow(double distance) { // Sets a distance from the vision target for the robot to maintain
     tankDrive(PIDDrive2(distance, Vision.distanceToTarget()), PIDDrive2(distance, Vision.distanceToTarget()));
   }
+  
+  public static void linearDrive(double distance) { // Drives the robot linearly to the set distance
+    tankDrive(PIDDrive2(distance, leftEncoder()/48), PIDDrive2(distance, rightEncoder()/48));
+  }
 
-  //public static void 
+  public static void seekDrive2(double distanceFromTarget) { // drives up to vision target currently in view
+    tankDrive(-PIDDrive2(distanceFromTarget, Vision.distanceToTarget()) + PIDDrive2(Vision.lX, Gyro.navXRotAngle()), 
+              -PIDDrive2(distanceFromTarget, Vision.distanceToTarget()) - PIDDrive2(Vision.lX, Gyro.navXRotAngle()));
+  }
 
   // returns 0 if input is below zero and returns the input if it is above 0
   public static double noNegative(final double input)
