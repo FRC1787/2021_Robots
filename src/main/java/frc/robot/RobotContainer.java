@@ -54,7 +54,7 @@ public class RobotContainer {
   /* Subsystems */
   public final static DriveTrain driveTrain = new DriveTrain();
   public final static Gyro gyro = new Gyro();
-  public final static Vision vision = new Vision();
+  //public final static Vision vision = new Vision();
   public final static Shooter shooter = new Shooter();
   public final static Climb climb = new Climb();
   public final static Intake intake = new Intake();
@@ -63,11 +63,11 @@ public class RobotContainer {
 
   /* Commands */
   public final static RobotDrive robotDrive = new RobotDrive(driveTrain);
-  public final static TurnToTarget turnToTarget = new TurnToTarget(driveTrain, vision);
+  //public final static TurnToTarget turnToTarget = new TurnToTarget(driveTrain, vision);
   public final static Shoot shoot = new Shoot(shooter, intake, false);
   public final static Shoot autoShoot = new Shoot(shooter, intake, true);
   private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
-  private final static ParallelRaceGroup targetingShoot = new ParallelRaceGroup(new Shoot(shooter, intake, true), turnToTarget);
+  //private final static ParallelRaceGroup targetingShoot = new ParallelRaceGroup(new Shoot(shooter, intake, true), turnToTarget);
   
 
   
@@ -112,7 +112,7 @@ public class RobotContainer {
 
     /* SHOOTER */
     rightThumb.whileHeld(shoot); //Manual Shoot
-    leftThumb.whileHeld(targetingShoot); //Targeting Shoot
+    //leftThumb.whileHeld(targetingShoot); //Targeting Shoot
     leftThumb.whenReleased(new SetHood(shooter, "Calibrate"));
 
     /* HOOD */
@@ -122,7 +122,7 @@ public class RobotContainer {
     hoodCalibrateButton.whenPressed(new SetHood(shooter, "Calibrate")); // Set hood to back limit and re-zero it
 
     /* VISION */
-    targetButton.whenPressed(new TurnToTarget(driveTrain, vision)); //Turn to face vision target
+    //targetButton.whenPressed(new TurnToTarget(driveTrain, vision)); //Turn to face vision target
 
     /* LIFTER */
     leftTrigger.whenPressed(new ClimbControl(climb)); //Change lifter control and position states
