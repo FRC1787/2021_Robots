@@ -9,13 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.ScheduleCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Joystick; 
@@ -50,11 +46,13 @@ import frc.robot.commands.PointBlank;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  
+  //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
+  //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   /* Subsystems */
   public final static DriveTrain driveTrain = new DriveTrain();
   public final static Gyro gyro = new Gyro();
-  //public final static Vision vision = new Vision();
+  public final static Vision vision = new Vision();
   public final static Shooter shooter = new Shooter();
   public final static Climb climb = new Climb();
   public final static Intake intake = new Intake();
@@ -63,34 +61,27 @@ public class RobotContainer {
 
   /* Commands */
   public final static RobotDrive robotDrive = new RobotDrive(driveTrain);
-  //public final static TurnToTarget turnToTarget = new TurnToTarget(driveTrain, vision);
-  public final static Shoot shoot = new Shoot(shooter, intake, false);
-  public final static Shoot autoShoot = new Shoot(shooter, intake, true);
-  private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
-  //private final static ParallelRaceGroup targetingShoot = new ParallelRaceGroup(new Shoot(shooter, intake, true), turnToTarget);
-  
+  public final static SetHood setHood = new SetHood(shooter, "Auto");
+  //public final static TurnToTarget turnToTarget = new TurnToTarget();
+  public final static Shoot shoot = new Shoot(shooter, intake);
 
-  
+  private final static PointBlank pointBlank = new PointBlank(driveTrain, shooter);
 
   /* OI */
 
   //Right Stick
   public static Joystick rightStick = new Joystick(0);
-  public Button rightTrigger = new JoystickButton(rightStick, 1);
-  public Button rightThumb = new JoystickButton(rightStick, 2); //back top button
-  public Button intakeToggle = new JoystickButton(rightStick, 3); //left thumb button
-  public Button reverseIntake = new JoystickButton(rightStick, 4);
-  public Button driveTrainOverride = new JoystickButton(rightStick, 5);
-  public Button targetButton = new JoystickButton(rightStick, 7);
+  public Button intakeBalls = new JoystickButton(rightStick, Constants.intakeBallsButton);
+  public Button shootBalls = new JoystickButton(rightStick, Constants.shootBallsButton); //thumb button
+  public Button intakeToggle = new JoystickButton(rightStick, Constants.intakeToggleButton); //bottom left thing
+  public Button reverseIntake = new JoystickButton(rightStick, Constants.reverseIntakeButton);
+  //public Button driveTrainOverride = new JoystickButton(rightStick, 5);
+  public Button targetButton = new JoystickButton(rightStick, Constants.targetButton);
 
-  //Left Stick
-  public static Joystick leftStick = new Joystick(1);
-  public Button leftTrigger = new JoystickButton(leftStick, 1);
-  public Button leftThumb = new JoystickButton(leftStick, 2);
-  public Button hoodManualButton = new JoystickButton(leftStick, 6);
-  public Button hoodForward = new JoystickButton(leftStick, 7);
-  public Button hoodBack = new JoystickButton(leftStick, 8);
-  public Button hoodCalibrateButton = new JoystickButton(leftStick, 11);
+  public Button climbAction = new JoystickButton(rightStick, Constants.climbButton);
+  //public Button hoodManual = new JoystickButton(rightStick, Constants.hoodManualButton); //we are using slider for climber instead
+  public static Button hoodForward = new JoystickButton(rightStick, Constants.hoodForwardButton);
+  public Button hoodBack = new JoystickButton(rightStick, Constants.hoodBackButton);
 
 
   /**
@@ -99,37 +90,30 @@ public class RobotContainer {
   public RobotContainer() {
     configureButtonBindings();
     driveTrain.setDefaultCommand(robotDrive);
-    //shooter.setDefaultCommand(setHood);
+    shooter.setDefaultCommand(setHood);
   }
 
-
+  /**
+   * Use this method to define your button->command mappings.  Buttons can be created by
+   * instantiating a {@link GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
+   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   */
   private void configureButtonBindings() {
-
-    /* INTAKE */
-    rightTrigger.whileHeld(new IntakeBawls(intake, 1, 1)); //Intake Balls
-    reverseIntake.whileHeld(new IntakeBawls(intake, -1, -1)); //Eject Balls
-    intakeToggle.whenPressed(new IntakeExtend(intake)); //Toggle Intake Position
-
-    /* SHOOTER */
-    rightThumb.whileHeld(shoot); //Manual Shoot
-    //leftThumb.whileHeld(targetingShoot); //Targeting Shoot
-    leftThumb.whenReleased(new SetHood(shooter, "Calibrate"));
-
-    /* HOOD */
-    hoodBack.whenPressed(new SetHood(shooter, "Back")); //Set to preprogrammed "Back" position
-    hoodForward.whenPressed(new SetHood(shooter, "Forward")); //Set to preprogrammed "Forward" position
-    hoodManualButton.whileHeld(new SetHood(shooter, "Manual")); //Manually set hood position
-    hoodCalibrateButton.whenPressed(new SetHood(shooter, "Calibrate")); // Set hood to back limit and re-zero it
-
-    /* VISION */
-    //targetButton.whenPressed(new TurnToTarget(driveTrain, vision)); //Turn to face vision target
-
-    /* LIFTER */
-    leftTrigger.whenPressed(new ClimbControl(climb)); //Change lifter control and position states
-
-    /* TESTING */ 
-    //targetButton.whenPressed(new OneEighty(driveTrain, gyro)); //Turn robot in place 180 degrees
-    //rightRight.whileHeld(new Chase(driveTrain, vision)); //I don't really remember what this does its probs dangerous though. I'm being serious by the way.
+    //rightTrigger.whenPressed(new TurnToTarget());
+    //rightTopLeft.whenPressed(new Follow(driveTrain, vision));
+    shootBalls.whileHeld(new Shoot(shooter, intake));
+    climbAction.whenPressed(new ClimbControl(climb));
+    intakeBalls.whileHeld(new IntakeBawls(intake, 1, 1));
+    reverseIntake.whileHeld(new IntakeBawls(intake, -1, -1));
+    targetButton.whenPressed(new TurnToTarget(driveTrain, vision));
+    //rightRight.whileHeld(new Chase(driveTrain, vision));
+    intakeToggle.whenPressed(new IntakeExtend(intake));
+    //TODO: HOOD DOESN'T MOVE
+    hoodBack.whenPressed(new SetHood(shooter, "Back"));
+    hoodForward.whenPressed(new SetHood(shooter, "Forward"));
+    //hoodManual.whileHeld( new SetHood(shooter, "Manual"));
+    //targetButton.whenPressed(new OneEighty(driveTrain, gyro));
   }
 
 
@@ -142,5 +126,4 @@ public class RobotContainer {
    public Command getAutonomousCommand() {
      return pointBlank;
     }
-    //hi
 }

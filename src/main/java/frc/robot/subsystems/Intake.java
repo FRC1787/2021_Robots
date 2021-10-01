@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Timer;
 //import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -85,7 +85,6 @@ public class Intake extends SubsystemBase {
     //intakeFront.set(-setSpeed);
   }
 
-  
   public static boolean getBreakerState() {
     return (succitvan2.getVoltage() > Intake.breakerVoltageConstant);
   }

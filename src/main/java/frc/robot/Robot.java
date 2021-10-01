@@ -23,7 +23,9 @@ import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.commands.ClimbControl;
 import frc.robot.subsystems.Climb;
+import frc.robot.commands.SetHood;
 
 
 /**
@@ -37,7 +39,7 @@ public class Robot extends TimedRobot {
 
   protected int farfar37;
   protected double internetSpeed = 2.0;
-  transient boolean succMoment = true;
+  transient boolean bruhMoment = true;
 
   private Compressor compressor = new Compressor();
   private RobotContainer robotContainer;
@@ -171,5 +173,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Distance to Target", Vision.distanceToTarget()/12);
     SmartDashboard.putNumber("Hood Set Position", Shooter.hoodSetPos);
     SmartDashboard.putNumber("Hood Amperage", Shooter.hood.getOutputCurrent());
+    SmartDashboard.putBoolean("Hood button 12", RobotContainer.rightStick.getRawButton(Constants.hoodForwardButton));
+    SmartDashboard.putBoolean("liftState", Climb.liftState);
   }
 }

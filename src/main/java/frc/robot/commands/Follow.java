@@ -35,7 +35,7 @@ public class Follow extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //DriveTrain.seekDrive(RobotContainer.vision.distanceOutput(2), "limeLight", "follow");
+    DriveTrain.seekDrive(RobotContainer.vision.distanceOutput(2), "limeLight", "follow");
     RobotContainer.gyro.navX.reset();
   }
 

@@ -15,7 +15,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.AlternateEncoderType;
 import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.Timer;
@@ -28,10 +28,10 @@ public class Shooter extends SubsystemBase {
   public static CANSparkMax accelerator = new CANSparkMax(10, MotorType.kBrushless);
   public static CANSparkMax hood = new CANSparkMax(11, MotorType.kBrushed);
 
-  public static CANEncoder shootE1 = new CANEncoder(shooter1);
-  public static CANEncoder shootE2 = new CANEncoder(shooter2);
-  public static CANEncoder acceleratorE = new CANEncoder(hood);
-  public static CANEncoder hoodE = new CANEncoder(hood, EncoderType.kQuadrature, 8192);
+  public static CANEncoder shootE1 = shooter1.getEncoder();//new CANEncoder(shooter1);
+  public static CANEncoder shootE2 = shooter2.getEncoder();//new CANEncoder(shooter2);
+  public static CANEncoder acceleratorE = accelerator.getEncoder();//new CANEncoder(hood);
+  public static CANEncoder hoodE = hood.getEncoder();//new CANEncoder(hood, EncoderType.kQuadrature, 8192);
 
   public static Timer shootTimer = new Timer();
   public static Timer intakeShootTimer = new Timer();
@@ -94,8 +94,8 @@ public class Shooter extends SubsystemBase {
   // HOOD //
 
   public static void hoodCalibrate() {
-    hood.set(1);
-    if (hood.getOutputCurrent() > 20) {
+    hood.set(-1);
+    if (hood.getOutputCurrent() > 10) {
       Shooter.hoodZeroPos = hoodE.getPosition();
       hood.set(0);
     }
@@ -106,7 +106,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public static void hoodAutoSet() {
-    double deltaPos = (Shooter.hoodSetPos - hoodE.getPosition()) * 20; 
+    double deltaPos = (Shooter.hoodSetPos - hoodE.getPosition()) * 20;
     if (hoodSetPos <= 0) {
       hood.set(deltaPos);
     }
@@ -128,19 +128,17 @@ public class Shooter extends SubsystemBase {
   
   public static void hoodControlState() {
 
-    /*if (RobotContainer.leftStick.getRawButtonPressed(3)) {
+    /*if (RobotContainer.leftStick.getRawButtonPressed(2)) {
       Shooter.hoodControl = !Shooter.hoodControl;
     }*/
   }
 
-  //Sets the hood to a good position for shooting from in front of the high goal
-  public static void hoodBack() { 
+  public static void hoodBack() { //Sets the hood to a good position for shooting from in front of the high goal
     double deltaPos = (-0.075806 - hoodE.getPosition()) * (20);
     hood.set(deltaPos);
   }
 
-  //sets the hood to a good position for shooting from the trench
-  public static void hoodForward() { 
+  public static void hoodForward() { //sets the hood to a good position for shooting from the trench
     double deltaPos = (-0.420898 - hoodE.getPosition()) * (20);
     hood.set(deltaPos);
   }

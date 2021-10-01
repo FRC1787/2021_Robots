@@ -31,10 +31,23 @@ public class RobotDrive extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+
+  public double deadzone(double num) {
+    return Math.abs(num) > 0.4 ? num : 0;
+  }
+
+  public double square(double num) {
+    return num*Math.abs(num);
+  }
+
   @Override
   public void execute() {
-    DriveTrain.moveLeftSide(RobotContainer.rightStick.getY() - RobotContainer.rightStick.getX());  //Math.abs(RobotContainer.rightStick.getX())); // reads Joystick values and converts them to drive values for each half of the robot
-    DriveTrain.moveRightSide(RobotContainer.rightStick.getY() + RobotContainer.rightStick.getX()); //*Math.abs(RobotContainer.rightStick.getX()));
+    double linearSpeed = (RobotContainer.rightStick.getY());
+    //idk fiddle with this a little
+    double angularSpeed = Math.max(1, Math.abs(1-linearSpeed)+0.15)*RobotContainer.rightStick.getX();
+    //double angularSpeed = square(RobotContainer.rightStick.getX());
+    DriveTrain.moveLeftSide(linearSpeed - angularSpeed);  //Math.abs(RobotContainer.rightStick.getX())); // reads Joystick values and converts them to drive values for each half of the robot
+    DriveTrain.moveRightSide(linearSpeed + angularSpeed); //*Math.abs(RobotContainer.rightStick.getX()));
   }
 
   // Called once the command ends or is interrupted.

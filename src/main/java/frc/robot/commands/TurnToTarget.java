@@ -45,17 +45,13 @@ public class TurnToTarget extends CommandBase {
   public void end(boolean interrupted) {
     DriveTrain.moveRightSide(0);
     DriveTrain.moveLeftSide(0);
-    
-    if (!interrupted) { 
     Vision.cameraSet(1);
     Vision.ledSet(1);
-    }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return RobotContainer.rightStick.getRawButton(Constants.DRIVETRAIN_OVERRIDE_BUTTON);
-    //return false;
   }
 }
