@@ -8,7 +8,7 @@
 package frc.robot;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ 0* The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
  * declared globally (i.e. public static).  Do not put anything functional in this class.
  *
@@ -17,5 +17,30 @@ package frc.robot;
  */
 public final class Constants {
 
+	//CONTROLS
 	public static final int DRIVETRAIN_OVERRIDE_BUTTON = 5;
+
+	//PID VALUES
+	public static final double PROPORTIONAL_TWEAK = 0.007; // 0.0065 0.0047
+	public static final double INTEGRAL_TWEAK = 0.0001;
+	public static final double DERIVATIVE_TWEAK = 0.0005;
+		//joysticks
+	public static final int rightJoystickPort = 0;
+	public static final int intakeBallsButton = 1;
+	public static final int shootBallsButton = 2;
+
+	public static final int intakeToggleButton = 3;
+	public static final int reverseIntakeButton = 4;
+
+	public static final int targetButton = 6;
+
+	//9 and 10 free
+
+	public static final int climbButton = 7;
+	public static final int hoodManualButton = 8;
+
+	public static final int hoodForwardButton = 12;
+	public static final int hoodBackButton = 11;
+
+
 }

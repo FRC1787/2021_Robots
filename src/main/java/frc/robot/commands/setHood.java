@@ -14,17 +14,19 @@ import frc.robot.subsystems.Shooter;
 
 public class SetHood extends CommandBase {
 
-  private String setPosition;
+  public String setPosition = "Back";
 
   public SetHood(Shooter subsystem, String position) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     this.setPosition = position;
+    System.out.println(this.setPosition);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    Shooter.hoodCalibrate();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,35 +38,25 @@ public class SetHood extends CommandBase {
     else if (setPosition.equals("Forward")) {
       Shooter.hoodForward();
     }
+    /*
     else if (setPosition.equals("Manual")) {
-      Shooter.setHood((RobotContainer.leftStick.getRawAxis(3) - 0.5)*2);
+      Shooter.setHood(RobotContainer.leftStick.getRawAxis(3));
     }
+    */
     else if (setPosition.equals("Auto")) {
       Shooter.hoodAutoSet();
-    }
-    else if (setPosition.equals("Calibrate")) {
-      Shooter.hoodCalibrate();
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (setPosition.equals("Auto")) {
-      Shooter.hoodCalibrate();
-    }
-    else {
-      Shooter.setHood(0);
-    }
+    Shooter.setHood(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (setPosition.equals("Calibrate")) {
-      return Shooter.hood.getOutputCurrent() > 20;
-    }
-    else
     return false;
   }
 }

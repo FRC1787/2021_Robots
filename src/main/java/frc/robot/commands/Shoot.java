@@ -15,14 +15,11 @@ import frc.robot.subsystems.Vision;
 import frc.robot.RobotContainer;
 
 public class Shoot extends CommandBase {
-  
-  private boolean autoTargetting;
   /**
    * Creates a new Shoot.
    */
-  public Shoot(Shooter shooter, Intake intake, boolean shotType) {
+  public Shoot(Shooter shooter, Intake intake) {
     addRequirements(shooter, intake);
-    this.autoTargetting = shotType;
   }
 
   // Called when the command is initially scheduled.
@@ -30,22 +27,15 @@ public class Shoot extends CommandBase {
   public void initialize() {
     Shooter.shootTimer.start();
     Shooter.intakeShootTimer.start();
-    
-    if (autoTargetting) {
-      Vision.ledSet(3);
-      Vision.cameraSet(0);
-    }
+    Vision.ledSet(3);
+    Vision.cameraSet(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //RobotContainer.shooter.shoot(1); // COURT THIS SETS THE SPEED
-    Shooter.bootlegShoot(4900, .8); //Sean this sets the RPM and accelerator wheel voltage percentage
-    
-    if (autoTargetting) {
-      Shooter.hoodAutoSet();
-    }
+    Shooter.bootlegShoot(4900, .8);
 
     if (Shooter.intakeTime > 1.4 && Shooter.intakeTime < 1.6) {
       Intake.intakeStage1(1);
@@ -55,7 +45,7 @@ public class Shoot extends CommandBase {
     }
   }
 
-  //Called once the command ends or is interrupted.
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Vision.ledSet(1);
@@ -66,13 +56,11 @@ public class Shoot extends CommandBase {
     Shooter.shootTimer.reset();
     Shooter.intakeShootTimer.stop();
     Shooter.intakeShootTimer.reset();
-    Shooter.setHood(0);
-
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !(RobotContainer.rightStick.getRawButton(2) ^ RobotContainer.leftStick.getRawButton(2));
+    return !RobotContainer.rightStick.getRawButton(2);
   }
 }

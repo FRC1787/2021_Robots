@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climb;
 
@@ -31,17 +31,20 @@ public class ClimbControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!Climb.liftState && !(RobotContainer.leftStick.getRawButton(3) || RobotContainer.leftStick.getRawButton(4))) {
-      RobotContainer.climb.climbRun(-RobotContainer.leftStick.getY());
+    if (!Climb.liftState && !(Math.abs(RobotContainer.rightStick.getRawAxis(3)) < 0.1)) {
+      RobotContainer.climb.climbRun(-RobotContainer.rightStick.getRawAxis(3)*0.5); //TODO: adjust speed to be better
+      //RobotContainer.climb.climbRun(0.05);
     }
-    else if (!Climb.liftState && RobotContainer.leftStick.getRawButton(3)) {
+    /*
+    else if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.intakeRetractButton)) {
       RobotContainer.climb.climbLeft(-RobotContainer.leftStick.getY());
       RobotContainer.climb.climbRight(0);
     }
-    else if (!Climb.liftState && RobotContainer.leftStick.getRawButton(4)) {
+    else if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.intakeExtendButton)) {
       RobotContainer.climb.climbRight(-RobotContainer.leftStick.getY());
       RobotContainer.climb.climbLeft(0);
     }
+    */
     else {
       Climb.climbRun(0);
     }

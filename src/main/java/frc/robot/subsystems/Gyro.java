@@ -22,7 +22,7 @@ public class Gyro extends SubsystemBase {
   /* NavX object */
   public static AHRS navX = new AHRS();
 
-  // Returns rotational angle of the robot in degrees
+  //returns rotational angle of the robot in degrees
   public static double navXRotAngle() {
     return navX.getYaw();
   }

@@ -25,8 +25,6 @@ public class Vision extends SubsystemBase {
 
   private UsbCamera powerCellCam;
 
-  private UsbCamera limelightCam;
-
   private CvSource outputStream;
 
   private CvSink powerCellFrameGrabber;
@@ -60,6 +58,7 @@ public class Vision extends SubsystemBase {
 
     //Push processed or unprocessed frames
     outputStream = cameraServer.putVideo("Processed Video", STANDARD_IMG_WIDTH, STANDARD_IMG_HEIGHT);
+  
   }
 
   public void configureCamera(UsbCamera camera, boolean targetingCamera) {
@@ -85,18 +84,15 @@ public class Vision extends SubsystemBase {
     return hullArea;
   }
 
-  // Floor distance between the robot and vision target
   public static double distanceToTarget() {
     double distance = ((7.4375*12 - 21.5)/(Math.tan(Math.toRadians(Vision.lY + 18))) - 24.5);
     return distance;
   }
 
-  // Changes limelight LED mode
   public static void ledSet(double ledState) {
     Vision.table.getEntry("ledMode").setNumber(ledState);
   }
 
-  // CHanges limelight camera mode
   public static void cameraSet(double cameraState) {
     Vision.table.getEntry("camMode").setNumber(cameraState);
   }
