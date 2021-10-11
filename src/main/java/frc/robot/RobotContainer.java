@@ -110,8 +110,8 @@ public class RobotContainer {
     //rightRight.whileHeld(new Chase(driveTrain, vision));
     intakeToggle.whenPressed(new IntakeExtend(intake));
     //TODO: HOOD DOESN'T MOVE
-    hoodBack.whenPressed(new SetHood(shooter, "Back"));
-    hoodForward.whenPressed(new SetHood(shooter, "Forward"));
+    // hoodBack.whenPressed(new SetHood(shooter, "Back"));
+    // hoodForward.whenPressed(new SetHood(shooter, "Forward"));
     //hoodManual.whileHeld( new SetHood(shooter, "Manual"));
     //targetButton.whenPressed(new OneEighty(driveTrain, gyro));
   }

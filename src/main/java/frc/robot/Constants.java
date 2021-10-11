@@ -24,7 +24,7 @@ public final class Constants {
 	public static final double PROPORTIONAL_TWEAK = 0.007; // 0.0065 0.0047
 	public static final double INTEGRAL_TWEAK = 0.0001;
 	public static final double DERIVATIVE_TWEAK = 0.0005;
-		//joysticks
+	//joysticks
 	public static final int rightJoystickPort = 0;
 	public static final int intakeBallsButton = 1;
 	public static final int shootBallsButton = 2;
@@ -37,8 +37,9 @@ public final class Constants {
 	//9 and 10 free
 
 	public static final int climbButton = 7;
-	public static final int hoodManualButton = 8;
 
+	//not currently using these
+	public static final int hoodManualButton = 8;
 	public static final int hoodForwardButton = 12;
 	public static final int hoodBackButton = 11;
 

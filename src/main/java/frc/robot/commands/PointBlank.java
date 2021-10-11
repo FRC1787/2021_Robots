@@ -57,8 +57,11 @@ public class PointBlank extends CommandBase {
       RobotContainer.gyro.navX.reset();
     }
     else if (autoTimer.get() > 9.8) {
-      RobotContainer.driveTrain.seekDrive(180, "navX", "exact");
+      DriveTrain.tankDrive(0, 0);
     }
+    // else if (autoTimer.get() > 9.8) {
+    // RobotContainer.driveTrain.seekDrive(180, "navX", "exact"); //uhhh maybe not needed
+    // }
   }
 
   // Called once the command ends or is interrupted.
