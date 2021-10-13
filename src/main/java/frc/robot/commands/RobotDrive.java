@@ -33,7 +33,7 @@ public class RobotDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
 
   public double deadzone(double num) {
-    return Math.abs(num) > 0.4 ? num : 0;
+    return Math.abs(num) > 0.025 ? num : 0;
   }
 
   public double square(double num) {

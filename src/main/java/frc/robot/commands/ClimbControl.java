@@ -31,9 +31,15 @@ public class ClimbControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!Climb.liftState && !(Math.abs(RobotContainer.rightStick.getRawAxis(3)) < 0.1)) {
-      RobotContainer.climb.climbRun(-RobotContainer.rightStick.getRawAxis(3)*0.5); //TODO: adjust speed to be better
-      //RobotContainer.climb.climbRun(0.05);
+    //if both pressed
+    if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.raiseArmButton) && RobotContainer.rightStick.getRawButton(Constants.lowerArmButton)) {
+      RobotContainer.climb.climbRun(0);
+    }
+    else if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.raiseArmButton)) {
+      RobotContainer.climb.climbRun(0.5);
+    }
+    else if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.lowerArmButton)) {
+      RobotContainer.climb.climbRun(-0.5);
     }
     /*
     else if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.intakeRetractButton)) {

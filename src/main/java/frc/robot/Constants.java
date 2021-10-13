@@ -34,9 +34,9 @@ public final class Constants {
 
 	public static final int targetButton = 6;
 
-	//9 and 10 free
-
 	public static final int climbButton = 7;
+	public static final int raiseArmButton = 10;
+	public static final int lowerArmButton = 9;
 
 	//not currently using these
 	public static final int hoodManualButton = 8;
