@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climb;
-
+import frc.robot.Constants;
 
 public class ClimbControl extends CommandBase {
   
@@ -36,10 +36,10 @@ public class ClimbControl extends CommandBase {
       RobotContainer.climb.climbRun(0);
     }
     else if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.raiseArmButton)) {
-      RobotContainer.climb.climbRun(0.5);
+      RobotContainer.climb.climbRun(Constants.raiseArmPower);
     }
     else if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.lowerArmButton)) {
-      RobotContainer.climb.climbRun(-0.5);
+      RobotContainer.climb.climbRun(Constants.lowerArmPower);
     }
     /*
     else if (!Climb.liftState && RobotContainer.rightStick.getRawButton(Constants.intakeRetractButton)) {

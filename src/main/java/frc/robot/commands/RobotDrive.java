@@ -42,9 +42,9 @@ public class RobotDrive extends CommandBase {
 
   @Override
   public void execute() {
-    double linearSpeed = (RobotContainer.rightStick.getY());
+    double linearSpeed = deadzone(RobotContainer.rightStick.getY());
     //idk fiddle with this a little
-    double angularSpeed = RobotContainer.rightStick.getX();
+    double angularSpeed = deadzone(RobotContainer.rightStick.getX());
     //double angularSpeed = Math.max(1, Math.abs(1-linearSpeed)+0.15)*RobotContainer.rightStick.getX();
     DriveTrain.moveLeftSide(linearSpeed - angularSpeed);  //Math.abs(RobotContainer.rightStick.getX())); // reads Joystick values and converts them to drive values for each half of the robot
     DriveTrain.moveRightSide(linearSpeed + angularSpeed); //*Math.abs(RobotContainer.rightStick.getX()));
