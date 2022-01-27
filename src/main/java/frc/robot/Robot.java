@@ -11,21 +11,21 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Vision;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+// import edu.wpi.first.networktables.NetworkTable;
+// import edu.wpi.first.networktables.NetworkTableEntry;
+// import edu.wpi.first.networktables.NetworkTableInstance;
+// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Compressor;
+// import edu.wpi.first.wpilibj.Compressor;
 
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Gyro;
-import frc.robot.subsystems.Vision;
-import frc.robot.subsystems.Intake;
+// import frc.robot.subsystems.Vision;
+// import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.commands.ClimbControl;
-import frc.robot.subsystems.Climb;
-import frc.robot.commands.SetHood;
+// import frc.robot.commands.ClimbControl;
+// import frc.robot.subsystems.Climb;
+// import frc.robot.commands.SetHood;
 
 
 /**
@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
   protected double internetSpeed = 2.0;
   transient boolean bruhMoment = true;
 
-  private Compressor compressor = new Compressor();
+  // private Compressor compressor = new Compressor();
   private RobotContainer robotContainer;
 
   public Command autoCommand;
@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
-    compressor.setClosedLoopControl(true);
+    // compressor.setClosedLoopControl(true);
   }
 
   /**
@@ -94,9 +94,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    Intake.extendIntake();
+    // Intake.extendIntake();
 
-    this.autoCommand = robotContainer.getAutonomousCommand();
+    // this.autoCommand = robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (this.autoCommand != null) {
@@ -123,9 +123,9 @@ public class Robot extends TimedRobot {
     } 
     Shooter.shootTimer.reset();
     Shooter.intakeShootTimer.reset();
-    Climb.lifterBrake(true);
-    Intake.extendIntake();
-    //Shooter.hoodControl = false;
+    // Climb.lifterBrake(true);
+    // Intake.extendIntake();
+    // Shooter.hoodControl = false;
     Vision.ledSet(1);
     Vision.cameraSet(1);
     //Shooter.hoodE.
@@ -162,18 +162,18 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Rotation", Gyro.navXRotAngle());
     SmartDashboard.putNumber("Roll", Gyro.navX.getRoll());
     SmartDashboard.putNumber("Pitch", Gyro.navX.getPitch());
-    SmartDashboard.putNumber("CSensor Distance", Intake.proximity);
+    // SmartDashboard.putNumber("CSensor Distance", Intake.proximity);
     SmartDashboard.putNumber("Right Distance", DriveTrain.rightDistance());
     SmartDashboard.putNumber("Left Distance", DriveTrain.leftDistance());
     SmartDashboard.putNumber("Shoot1 RPM", Shooter.shootE1.getVelocity());
     SmartDashboard.putNumber("Shoot2 RPM", Shooter.shootE2.getVelocity());
-    SmartDashboard.putNumber("Hood Position", Shooter.hoodE.getPosition());
+    // SmartDashboard.putNumber("Hood Position", Shooter.hoodE.getPosition());
     SmartDashboard.putNumber("Shoot Ramp Time", Shooter.shootTimer.get());
     SmartDashboard.putNumber("Accelerator RPM", Shooter.acceleratorE.getVelocity());
     SmartDashboard.putNumber("Distance to Target", Vision.distanceToTarget()/12);
     SmartDashboard.putNumber("Hood Set Position", Shooter.hoodSetPos);
     SmartDashboard.putNumber("Hood Amperage", Shooter.hood.getOutputCurrent());
     SmartDashboard.putBoolean("Hood button 12", RobotContainer.rightStick.getRawButton(Constants.hoodForwardButton));
-    SmartDashboard.putBoolean("liftState", Climb.liftState);
+    // SmartDashboard.putBoolean("liftState", Climb.liftState);
   }
 }

@@ -13,11 +13,11 @@ import frc.robot.Robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.VideoCamera.WhiteBalance;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.VideoCamera.WhiteBalance;
 
 public class Vision extends SubsystemBase {
   

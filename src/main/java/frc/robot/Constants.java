@@ -17,30 +17,37 @@ package frc.robot;
  */
 public final class Constants {
 
-	//CONTROLS
+	//	CONTROLS
 	public static final int DRIVETRAIN_OVERRIDE_BUTTON = 5;
 
-	//PID VALUES
+
+	//	PID VALUES
 	public static final double PROPORTIONAL_TWEAK = 0.007; // 0.0065 0.0047
 	public static final double INTEGRAL_TWEAK = 0.0001;
 	public static final double DERIVATIVE_TWEAK = 0.0005;
-		//joysticks
+
+
+	//	JOYSTICKS
 	public static final int rightJoystickPort = 0;
+	//intake + shoot
 	public static final int intakeBallsButton = 1;
 	public static final int shootBallsButton = 2;
-
 	public static final int intakeToggleButton = 3;
 	public static final int reverseIntakeButton = 4;
-
-	public static final int targetButton = 6;
-
-	//9 and 10 free
-
+	//climbing
 	public static final int climbButton = 7;
-	public static final int hoodManualButton = 8;
+	public static final int raiseArmButton = 10;
+	public static final int lowerArmButton = 9;
+	public static final double raiseArmPower = 0.5;
+	public static final double lowerArmPower = -0.675;
 
+
+	//not currently using these (forgor)
+	public static final int hoodManualButton = 8;
 	public static final int hoodForwardButton = 12;
 	public static final int hoodBackButton = 11;
+	//autonomous
+	public static final int targetButton = 6;
 
 
 }
